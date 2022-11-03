@@ -871,12 +871,14 @@ public final class Unsafe {
         throws InstantiationException;
 
     /** Lock the object.  It must get unlocked via {@link #monitorExit}. */
+    // 锁定对象，必须通过 monitorExit 方法才能解锁。方法可以多次调用，线程可以重入
     public native void monitorEnter(Object o);
 
     /**
      * Unlock the object.  It must have been locked via {@link
      * #monitorEnter}.
      */
+    // 接触锁定对象，前提对象是必须已经调用monitorEnter进行解锁，否则抛出IllegalMonitorStateException异常
     public native void monitorExit(Object o);
 
     /**
@@ -884,6 +886,7 @@ public final class Unsafe {
      * whether the lock succeeded.  If it did, the object must be
      * unlocked via {@link #monitorExit}.
      */
+    // 尝试锁定对象，如果加锁成功返回true, 否则返回false
     public native boolean tryMonitorEnter(Object o);
 
     /** Throw the exception without telling the verifier. */
